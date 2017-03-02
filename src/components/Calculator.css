@@ -1,6 +1,3 @@
-.calculator {
-  max-width: 200px;
-}
 .calculator__display {
   height: 80px;
   padding: 5px;
@@ -37,3 +34,28 @@
   width: 100%;
 }
 
+.calculator__button, .calculator__button button {
+  height: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+  .calculator {
+    height: 100%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-direction: column;
+  }
+  .calculator__display {
+    font-size: 4rem;
+    flex: 1;
+  }
+  .calculator__buttons {
+    flex: 3;
+  }
+  .calculator__button button {
+    font-size: 3rem;
+  }
+}
