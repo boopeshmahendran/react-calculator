@@ -1,0 +1,33 @@
+.calculator {
+  max-width: 200px;
+}
+.calculator__display {
+  height: 80px;
+  padding: 5px;
+  font-size: 3rem;
+  background: #C5D6C4;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.calculator__buttons {
+  padding: 20px;
+  background: #ddd;
+  width: 100%;
+}
+
+.calculator__button {
+  padding: 5px;
+}
+
+.calculator__button button {
+  border-radius: 0;
+  width: 100%;
+}
+
