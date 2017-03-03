@@ -1,7 +1,7 @@
 .calculator__display {
-  height: 80px;
+  height: 150px;
   padding: 5px;
-  font-size: 3rem;
+  font-size: 4rem;
   background: #C5D6C4;
   display: -webkit-flex;
   display: -moz-flex;
@@ -36,6 +36,8 @@
 
 .calculator__button, .calculator__button button {
   height: 100%;
+  font-size: 3rem;
+  min-width: 60px;
 }
 
 @media only screen and (max-width: 800px) {
