@@ -10,8 +10,16 @@ class Calculator extends Component {
       curValue: 0,
       answer: 0,
       computation: '',
-      operator: ''
-    };
+      operator: '+'
+    }
+  }
+  
+  resetCalc(state) {
+    state.prevValue = 0;
+    state.curValue = 0;
+    state.answer = 0;
+    state.computation = '';
+    state.operator = '+';
   }
   
   evaluate(a, b, operator) {
@@ -37,40 +45,27 @@ class Calculator extends Component {
       state.operator = buttonValue;
     }
     
-    // change computation
-    switch(buttonValue) {
-      case 'squareRoot': 
-        state.computation = `√(${this.state.computation})`;
-        break;
-      case 'clear':
-        state.computation = '';
-        break;
-      default:
-        state.computation += buttonValue;
-    }
-    
     if (typeof buttonValue === 'number') {
-      if (state.operator) {
-        state.curValue = (state.curValue === 0)? buttonValue: state.curValue * 10 + buttonValue;
+        state.curValue = state.curValue * 10 + buttonValue;
         state.answer = +(this.evaluate(state.prevValue, state.curValue, state.operator).toFixed(2));
-      }
-      else {
-        state.answer = (state.answer === 0)? buttonValue: state.answer * 10 + buttonValue;
-      }
     }
     
     switch(buttonValue) {
       case 'clear': 
-        state.answer = 0;
-        state.operator = '';
+        this.resetCalc(state);
         break;
       case 'squareRoot':
         state.answer = +(Math.sqrt(state.answer).toFixed(2));
+        state.computation = `√(${this.state.computation})`;
         break;
       case '=':
-        state.computation = state.answer.toString();
-        state.operator = '';
+        let answer = state.answer;
+        this.resetCalc(state);
+        state.answer = state.curValue = answer;
+        state.computation = answer.toString();
         break;
+      default:
+        state.computation += buttonValue;
     }
       
     this.setState(state);
