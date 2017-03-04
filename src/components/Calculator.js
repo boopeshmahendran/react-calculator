@@ -83,7 +83,7 @@ class Calculator extends Component {
         </div>
         <Grid className='calculator__buttons'>
           <Row> 
-            <Col xs={6} className='calculator__button'><Button onClick={() => this.handleClickButton('clear')}>CLR</Button></Col>
+            <Col xs={6} className='calculator__button'><Button onClick={() => this.handleClickButton('clear')}>C</Button></Col>
             <Col xs={3} className='calculator__button'><Button onClick={() => this.handleClickButton('squareRoot')}>√</Button></Col>
             <Col xs={3} className='calculator__button'><Button onClick={() => this.handleClickButton('+')}>+</Button></Col>
           </Row>
