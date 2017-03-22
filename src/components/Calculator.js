@@ -7,21 +7,21 @@ class Calculator extends Component {
     super();
     this.state = {
       prevValue: 0,
-      curValue: 0,
+      curValue: '',
       answer: 0,
       computation: '',
       operator: '+'
     }
   }
-  
+
   resetCalc(state) {
     state.prevValue = 0;
-    state.curValue = 0;
+    state.curValue = '';
     state.answer = 0;
     state.computation = '';
     state.operator = '+';
   }
-  
+
   evaluate(a, b, operator) {
     switch (operator) {
       case '+': return a + b;
@@ -30,28 +30,38 @@ class Calculator extends Component {
       case '/': return a / b;
     }
   }
-  
+
   handleClickButton(buttonValue) {
     let state = Object.assign({}, this.state);
     let operators = ['+', '-', '*', '/'];
-    
+
+    // operators
     if (operators.indexOf(buttonValue) >= 0) {
       // if last character is operator, return
       if (operators.indexOf(state.computation.slice(-1)) >= 0) return;
-      
+
       state.prevValue = state.answer;
-      state.curValue = 0;
+      state.curValue = '';
       state.answer = 0;
       state.operator = buttonValue;
     }
-    
+
+    // numbers
     if (typeof buttonValue === 'number') {
-        state.curValue = state.curValue * 10 + buttonValue;
-        state.answer = +(this.evaluate(state.prevValue, state.curValue, state.operator).toFixed(2));
+        state.curValue += buttonValue;
+        state.answer = +(this.evaluate(state.prevValue, Number(state.curValue), state.operator).toFixed(2));
     }
-    
+
+    // '.' operator
+    if (buttonValue === '.') {
+      if (state.curValue.indexOf('.') >= 0) return;
+      state.curValue += buttonValue;
+    }
+
+
+    // other buttons
     switch(buttonValue) {
-      case 'clear': 
+      case 'clear':
         this.resetCalc(state);
         break;
       case 'squareRoot':
@@ -61,17 +71,18 @@ class Calculator extends Component {
       case '=':
         let answer = state.answer;
         this.resetCalc(state);
-        state.answer = state.curValue = answer;
+        state.curValue = String(answer);
+        state.answer = answer;
         state.computation = answer.toString();
         break;
       default:
         state.computation += buttonValue;
     }
-      
+
     this.setState(state);
   }
-  
-  
+
+
   render() {
     return (
       <div className='calculator'>
@@ -107,7 +118,8 @@ class Calculator extends Component {
           </Row>
           <Row>
             <Col xs={3} className='calculator__button'><Button onClick={() => this.handleClickButton(0)}>0</Button></Col>
-            <Col xs={9} className='calculator__button'><Button onClick={() => this.handleClickButton('=')}>=</Button></Col>
+            <Col xs={3} className='calculator__button'><Button onClick={() => this.handleClickButton('.')}>.</Button></Col>
+            <Col xs={6} className='calculator__button'><Button onClick={() => this.handleClickButton('=')}>=</Button></Col>
           </Row>
         </Grid>
       </div>
